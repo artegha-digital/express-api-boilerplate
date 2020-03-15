@@ -5,7 +5,7 @@ import logger from 'morgan'
 import helmet from 'helmet'
 import mongoose from 'mongoose'
 
-import passportManager from 'passport'
+import passportManager from '@middlewares/passport'
 import router from '@routes'
 
 import config from '@config/config'
