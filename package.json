@@ -1,6 +1,7 @@
 {
-  "name": "siil",
+  "name": "express-api-boilerplate",
   "version": "0.0.0",
+  "git": "https://github.com/artegha-digital/express-api-boilerplate.git",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specidied\" && exit 1",
