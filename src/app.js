@@ -1,11 +1,10 @@
 import express from 'express'
 import path from 'path'
-import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import helmet from 'helmet'
-import mongoose from 'mongoose'
-
-import passportManager from '@middlewares/passport'
+import formidable from '@middlewares/formidable'
+import connect from '@middlewares/sql'
+import passport from '@middlewares/passport'
 import router from '@routes'
 
 import config from '@config/config'
@@ -13,12 +12,11 @@ import config from '@config/config'
 const app = express();
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(formidable());
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
-app.use(passportManager.initialize());
+app.use(passport.initialize());
+// app.use(sql.connect());
 
 app.use('/', router);
 
@@ -32,14 +30,6 @@ app.use((req, res, next) => {
 });
 
 console.log('Build Finished without error !');
-console.log('Trying to connect to MongoDB...');
 
-// mongoose.connect(config.database, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useFindAndModify: false
-// })
-// .then(() => console.log("MongoDB connected !"))
-// .catch(err => console.log(err));
 
 module.exports = app;

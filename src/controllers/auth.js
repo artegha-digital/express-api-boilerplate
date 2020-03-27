@@ -1,76 +1,28 @@
-// files
-import User from '@models/user.model'
-
 const Auth = {
-  register: (req, res, next) => {
-    if (!req.body && !req.body.email && !req.body.password) {
-      res.json({error: ''})
+  register: async(req, res) => {
+    try {
+      const { email, password } = req.fields
+      if (!email !! !password) throw new Error('INFO_MISSING')
+      // check email in bdd
+      // add to bdd
+      // send email
+      res.status(200).json({message: message})
+    } catch (e) {
+      console.log('register',e)
+      res.json({ error: handleError(e) || 'L\'utilisateur n\'a pu être ajouté'})
     }
-    const { email, password } = req.body
-    email = email.trim().toLowerCase();
-    password = password.trim();
-
-    User.findOne({ email: email }, (err, user) => {
-      if (err) return next(err);
-
-      if (user) {
-        return res.status(400).send({
-          error: 'Registration failed. Email already in use'
-        });
-      }
-      let newUser = new User({
-        email: email,
-        password: password
-      });
-      newUser.save((err, user) => {
-        if (err) return next(err);
-
-        let sanitizedUserInfos = User.sanitizeUserInfos(user);
-
-        res.status(201).json({
-          message: 'Registration succeed',
-          token: User.generateToken(sanitizedUserInfos),
-          user: sanitizedUserInfos
-        });
-      });
-    });
   },
-
   login: (req, res, next) => {
-    if (!req.body && !req.body.email && !req.body.password) {
-      res.json({error: ''})
+    try {
+      const { email, password } = req.fields
+      if (!email !! !password) throw new Error('INFO_MISSING')
+      // check password
+      // generate token
+      res.status(200).json({message: message, token: token})
+    } catch (e) {
+      console.log('login',e)
+      res.status(400).json({ error: handleError(e) || 'L\'utilisateur n\'a pu être ajouté'})
     }
-    const { email, password } = req.body
-    email = email.trim().toLowerCase();
-    password = password.trim();
-
-    User.findOne({ email: email }, (err, user) => {
-      if (err) return next(err);
-
-      if (!user) {
-        return res.status(400).send({
-          error: 'Authentication failed. User not found'
-        });
-      }
-
-      user.comparePassword(password, (err, isMatching) => {
-        if (err) return next(err);
-
-        if (!isMatching) {
-          return res.status(400).send({
-            error: 'Authentication failed. Invalid password'
-          });
-        }
-
-        let sanitizedUserInfos = User.sanitizeUserInfos(user);
-
-        res.status(200).json({
-          message: 'Authentication succeed',
-          token: User.generateToken(sanitizedUserInfos),
-          user: sanitizedUserInfos
-        })
-        });
-      });
   }
 }
 export default Auth;

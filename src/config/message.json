@@ -1,0 +1,7 @@
+{
+  "INFO_MISSING": "Il manque des informations",
+  "USER_ALREADY_EXIST": "Un compte existe deja avec cet email ou ce numero de telephone",
+  "WEAK_PASSWORD": "Le mot de passe doit etre de complexité plus élevé",
+  "USER_NOT_FOUND": "Cette email n'existe pas",
+  "USER_NOT_ADDED": "L'utilisateur n'a pas été ajouté",
+}
