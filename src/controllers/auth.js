@@ -2,7 +2,7 @@ const Auth = {
   register: async(req, res) => {
     try {
       const { email, password } = req.fields
-      if (!email !! !password) throw new Error('INFO_MISSING')
+      if (!email || !password) throw new Error('INFO_MISSING')
       // check email in bdd
       // add to bdd
       // send email
@@ -15,7 +15,7 @@ const Auth = {
   login: (req, res, next) => {
     try {
       const { email, password } = req.fields
-      if (!email !! !password) throw new Error('INFO_MISSING')
+      if (!email || !password) throw new Error('INFO_MISSING')
       // check password
       // generate token
       res.status(200).json({message: message, token: token})
