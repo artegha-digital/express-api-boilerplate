@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import auth from '@routes/auth'
+import auth from './auth'
 
 router.use('/auth', auth)
 

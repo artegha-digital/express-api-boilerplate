@@ -1,13 +1,13 @@
 import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
-import User from '@models/user.model';
-import config from '@config/config';
+import { User } from '@models'
+
 
 class passportManager {
     initialize(){
         var opts = {
             jwtFromRequest : ExtractJwt.fromAuthHeaderWithScheme("jwt"),
-            secretOrKey : config.secret
+            secretOrKey : process.env.secret
         }
         passport.use('user', new Strategy(opts, function(jwt_payload, done) {
             User.findOne({id: jwt_payload.id}, function(err, user) {

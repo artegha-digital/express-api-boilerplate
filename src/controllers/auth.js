@@ -1,5 +1,5 @@
 // files
-import User from '@models/user.model'
+import { User } from '@models'
 
 const Auth = {
   register: (req, res, next) => {

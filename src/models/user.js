@@ -2,10 +2,8 @@ import mongoose from 'mongoose';
 import uuidv4 from 'uuid/v4';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import config from '@config/config';
 
 const Schema = mongoose.Schema;
-mongoose.set('useCreateIndex', true);
 
 const UserSchema = new Schema({
   id: {
@@ -33,7 +31,7 @@ const UserSchema = new Schema({
 UserSchema.pre('save', function (next) {
   if (!this.isModified('password')) return next();
 
-  bcrypt.genSalt(config.hashSaltRound, function (err, salt) {
+  bcrypt.genSalt(process.env.hashSaltRound, function (err, salt) {
     if (err) return next(err);
     bcrypt.hash(this.password, salt, function (err, hash) {
       if (err) return next(err);
@@ -52,8 +50,8 @@ UserSchema.methods.comparePassword = function (passw, next) {
 };
 
 UserSchema.statics.generateToken = function(user) {
-  return jwt.sign(user, config.secret, {
-    expiresIn: config.tokenExpiration
+  return jwt.sign(user, process.env.secret, {
+    expiresIn: process.env.tokenExpiration
   });
 };
 
