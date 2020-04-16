@@ -6,7 +6,6 @@ import formidable from '@middlewares/formidable'
 import '@middlewares/sql'
 import passport from '@middlewares/passport'
 import router from '@routes'
-import config from '@config/config'
 
 const app = express();
 
@@ -22,7 +21,7 @@ app.use('/', router);
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, " + config.tokenHeader);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, ");
     res.header("Access-Control-Allow-Credentials", "true");
     next();
 });
