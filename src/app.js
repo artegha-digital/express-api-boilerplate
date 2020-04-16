@@ -3,10 +3,9 @@ import path from 'path'
 import logger from 'morgan'
 import helmet from 'helmet'
 import formidable from '@middlewares/formidable'
-import connect from '@middlewares/sql'
+import '@middlewares/sql'
 import passport from '@middlewares/passport'
 import router from '@routes'
-
 import config from '@config/config'
 
 const app = express();
@@ -16,7 +15,6 @@ app.use(formidable());
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 app.use(passport.initialize());
-// app.use(sql.connect());
 
 app.use('/', router);
 
